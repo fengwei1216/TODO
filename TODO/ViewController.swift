@@ -10,7 +10,8 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
 
-    let itemArray = ["购买水杯","吃药","修改密码"]
+    
+    var  itemArray = ["购买水杯","吃药","修改密码"]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -36,6 +37,26 @@ class TodoListViewController: UITableViewController {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField();
+        let alert = UIAlertController(title: "添加一个新的ToDo项目", message: "", preferredStyle: .alert)
+        let action = UIAlertAction(title: "添加项目", style: .default){
+            (action) in
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData();
+            print(textField.text!)
+        }
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "创建一个新项目..."
+            textField = alertTextField
+            
+            //print(alertTextField.text!);
+            
+        }
+        alert.addAction(action)
+        present(alert,animated: true,completion: nil)
     }
 
 
